@@ -14,6 +14,7 @@ getWeather();
 document.querySelector('#city').onchange = getWeather;
 
 function showWeather(data){
+    document.querySelector('.weather-date').textContent = new Date().toDateString();
     document.querySelector('.weather-city').textContent = data.name;
     document.querySelector('.weather-icon img').src = `//openweathermap.org/img/wn/${data.weather[0]['icon']}@2x.png`;
     document.querySelector('.weather-temp').innerHTML = `${Math.round(data.main.temp - 273)} &deg;C`;
