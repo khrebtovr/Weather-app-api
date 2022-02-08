@@ -2,6 +2,12 @@ const param = {
     'url': "https://api.openweathermap.org/data/2.5/",
     'appid' : '9fe70d8058dd1aee711414e8ea36eecb'
 }
+const cities = {
+    '2988506': 'Paris',
+    '2172797': 'Cairns',
+    '625144': 'Minsk',
+    '703448': 'Kyiv'
+}
 
 function getWeather() {
     const cityId = document.querySelector('#city').value;
@@ -10,8 +16,20 @@ function getWeather() {
 			return weather.json();
 		}).then(showWeather);
 }
-getWeather();
-document.querySelector('#city').onchange = getWeather;
+
+function createSelectCities(){
+    const selectCities = document.createElement('select');
+    selectCities.id = 'city';
+    for(let key in cities){
+        let option = document.createElement('option');
+        option.textContent = cities[key];
+        option.value = key;
+        selectCities.appendChild(option)
+    }
+    const select = document.querySelector('.select-city');
+    select.appendChild(selectCities)
+}
+createSelectCities()
 
 function showWeather(data){
     document.querySelector('.weather-date').textContent = new Date().toDateString();
@@ -23,3 +41,6 @@ function showWeather(data){
     document.querySelector('.humidity-value').textContent = `${data.main.humidity} %`;
     document.querySelector('.wind-value').textContent = `${Math.round(data.wind.speed)} km/h`;
 }
+
+getWeather();
+document.querySelector('#city').onchange = getWeather;
